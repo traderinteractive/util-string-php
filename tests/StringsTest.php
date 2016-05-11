@@ -2,13 +2,13 @@
 
 namespace DominionEnterprises\Util;
 
-use DominionEnterprises\Util\String as S;
+use DominionEnterprises\Util\Strings as S;
 
 /**
- * @coversDefaultClass \DominionEnterprises\Util\String
+ * @coversDefaultClass \DominionEnterprises\Util\Strings
  * @covers ::<private>
  */
-final class StringTest extends \PHPUnit_Framework_TestCase
+final class StringsTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Verify bahavior of format() with only one argument.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines \DominionEnterprises\Util\String class.
+ * Defines \DominionEnterprises\Util\Strings class.
  */
 
 namespace DominionEnterprises\Util;
@@ -8,7 +8,7 @@ namespace DominionEnterprises\Util;
 /**
  * Static class with various string functions.
  */
-final class String
+final class Strings
 {
     /**
      * Replaces the format items in a specified string with the string representation of n specified objects.
