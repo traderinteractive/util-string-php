@@ -14,27 +14,17 @@ final class Strings
      * Replaces the format items in a specified string with the string representation of n specified objects.
      *
      * @param string $format A composit format string
-     * @param mixed $arg0 The first item to format
-     * @param mixed $arg1 The second item to format
+     * @param mixed  $arguments Variable number of items to format.
      *
      * @return string Returns a copy of format in which the format items have been
      *     replaced by the string representations of arg0, arg1,... argN.
      *
-     * @throws \InvalidArgumentException Thrown if String::format() does not have at least 2 arguments
      * @throws \InvalidArgumentException Thrown if $format is not a string
      * @throws \InvalidArgumentException Thrown if all arguments are not castable as strings or
      *     if less than two arguments are given
      */
-    public static function format()
+    public static function format($format, ...$arguments)
     {
-        $arguments = func_get_args();
-
-        if (count($arguments) < 2) {
-            throw new \InvalidArgumentException('String::format() takes at least 2 arguments');
-        }
-
-        $format = array_shift($arguments);
-
         if (!is_string($format)) {
             throw new \InvalidArgumentException('$format is not a string');
         }
