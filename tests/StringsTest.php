@@ -2,29 +2,14 @@
 
 namespace DominionEnterprises\Util;
 
-use DominionEnterprises\Util\String as S;
+use DominionEnterprises\Util\Strings as S;
 
 /**
- * @coversDefaultClass \DominionEnterprises\Util\String
+ * @coversDefaultClass \DominionEnterprises\Util\Strings
  * @covers ::<private>
  */
-final class StringTest extends \PHPUnit_Framework_TestCase
+final class StringsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Verify bahavior of format() with only one argument.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage String::format() takes at least 2 arguments
-     * @covers ::format
-     *
-     * @return void
-     */
-    public function formatOnlyOneArgumentn()
-    {
-        S::format('{0} and {1}');
-    }
-
     /**
      * Verify bahavior of format() with argument cannot be casted to a string.
      *
