@@ -13,10 +13,6 @@ final class String
     /**
      * Replaces the format items in a specified string with the string representation of n specified objects.
      *
-     * @param string $format A composit format string
-     * @param mixed $arg0 The first item to format
-     * @param mixed $arg1 The second item to format
-     *
      * @return string Returns a copy of format in which the format items have been
      *     replaced by the string representations of arg0, arg1,... argN.
      *
