@@ -37,7 +37,8 @@ Developers may be contacted at:
 With a checkout of the code get [Composer](http://getcomposer.org) in your PATH and run:
 
 ```sh
-./build.php
+./vendor/bin/phpunit
+./vendor/bin/phpcs
 ```
 
 There is also a [docker](http://www.docker.com/)-based
