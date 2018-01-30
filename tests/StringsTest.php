@@ -11,21 +11,6 @@ use TraderInteractive\Util\Strings as S;
 final class StringsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Verify bahavior of format() with argument cannot be casted to a string.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Variable of type 'stdClass' could not be converted to a string
-     * @covers ::format
-     *
-     * @return void
-     */
-    public function formatNonStringCastableObject()
-    {
-        S::format('{0} and {1}', new \StdClass(), 'Jill');
-    }
-
-    /**
      * Verify bahavior of format() with object argument casted to a string.
      *
      * @test
@@ -69,21 +54,6 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Verify bahavior of format() with non-string $format.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $format is not a string
-     * @covers ::format
-     *
-     * @return void
-     */
-    public function formatNonStringFormat()
-    {
-        S::format([], 'C', 'B', 'A');
-    }
-
-    /**
      * Verify matching bahavior of endsWith().
      *
      * @test
@@ -111,36 +81,6 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
         $nonSuffix = null;
         $this->assertFalse(S::endsWith('bah', 'z', $nonSuffix));
         $this->assertSame('bah', $nonSuffix);
-    }
-
-    /**
-     * Verify non-matching bahavior of endsWith().
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $string is not a string
-     * @covers ::endsWith
-     *
-     * @return void
-     */
-    public function endsWithBadTypeForSubject()
-    {
-        S::endsWith(true, '');
-    }
-
-    /**
-     * Verify behavior of endsWith() with non-string $suffix.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $suffix is not a string
-     * @covers ::endsWith
-     *
-     * @return void
-     */
-    public function endsWithBadTypeForSuffix()
-    {
-        S::endsWith('', true);
     }
 
     /**
@@ -240,51 +180,6 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that ellipsize fails with an integer instead of a string.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $string is not a string
-     * @covers ::ellipsize
-     *
-     * @return void
-     */
-    public function ellipsizeIntegerInsteadOfString()
-    {
-        S::ellipsize(null, 10);
-    }
-
-    /**
-     * Tests that ellipsize fails with a string for $maxLength.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $maxLength is not an integer
-     * @covers ::ellipsize
-     *
-     * @return void
-     */
-    public function ellipsizeStringMaxLength()
-    {
-        S::ellipsize('test', 'a');
-    }
-
-    /**
-     * Tests that ellipsize fails with an integer for $suffix.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $suffix is not a string
-     * @covers ::ellipsize
-     *
-     * @return void
-     */
-    public function ellipsizeIntegerSuffix()
-    {
-        S::ellipsize('test', 10, 0);
-    }
-
-    /**
      * Verify basic behavior of ucwords().
      *
      * @test
@@ -336,35 +231,5 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
     {
         $input = 'Mary had a little-lamb';
         $this->assertSame('MaRy haD a little-laMb', S::ucwords($input, 'a'));
-    }
-
-    /**
-     * Verify behavior of ucwords() with non-string $string.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $string is not a string
-     * @covers ::ucwords
-     *
-     * @return void
-     */
-    public function ucwordsBadTypeString()
-    {
-        S::ucwords(null);
-    }
-
-    /**
-     * Verify behavior of ucwords() with non-string $delimiters.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $delimiters is not a string
-     * @covers ::ucwords
-     *
-     * @return void
-     */
-    public function ucwordsBadTypeDelimiters()
-    {
-        S::ucwords('test', null);
     }
 }

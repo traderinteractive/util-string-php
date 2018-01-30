@@ -23,7 +23,7 @@ final class Strings
      * @throws \InvalidArgumentException Thrown if all arguments are not castable as strings or
      *     if less than two arguments are given
      */
-    public static function format($format, ...$arguments)
+    public static function format(string $format, string ...$arguments) : string
     {
         if (!is_string($format)) {
             throw new \InvalidArgumentException('$format is not a string');
@@ -58,7 +58,7 @@ final class Strings
      * @throws \InvalidArgumentException if $string is not a string
      * @throws \InvalidArgumentException if $suffix is not a string
      */
-    public static function endsWith($string, $suffix, &$nonSuffix = null)
+    public static function endsWith(string $string, string $suffix, &$nonSuffix = null) : bool
     {
         if (!is_string($string)) {
             throw new \InvalidArgumentException('$string is not a string');
@@ -102,7 +102,7 @@ final class Strings
      * @throws \InvalidArgumentException if $maxLength is negative
      * @throws \InvalidArgumentException if $suffix is not a string
      */
-    public static function ellipsize($string, $maxLength, $suffix = '...')
+    public static function ellipsize(string $string, int $maxLength, string $suffix = '...') : string
     {
         if (!is_string($string)) {
             throw new \InvalidArgumentException('$string is not a string');
@@ -160,7 +160,7 @@ final class Strings
      * @throws \InvalidArgumentException if $string is not a string
      * @throws \InvalidArgumentException if $delimiters is not a string
      */
-    public static function ucwords($string, $delimiters = "-_+' \n\t\r\0\x0B:/,.")
+    public static function ucwords(string $string, string $delimiters = "-_+' \n\t\r\0\x0B:/,.") : string
     {
         if (!is_string($string)) {
             throw new \InvalidArgumentException('$string is not a string');
