@@ -22,10 +22,7 @@ final class Strings
     public static function format(string $format, string ...$arguments) : string
     {
         foreach ($arguments as $key => $value) {
-            if (is_scalar($value) || (is_object($value) && method_exists($value, '__toString'))) {
-                $format = str_replace("{{$key}}", (string)$value, $format);
-                continue;
-            }
+            $format = str_replace("{{$key}}", (string)$value, $format);
         }
 
         return $format;
