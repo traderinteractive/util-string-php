@@ -1,9 +1,9 @@
 <?php
 /**
- * Defines \DominionEnterprises\Util\Strings class.
+ * Defines \TraderInteractive\Util\Strings class.
  */
 
-namespace DominionEnterprises\Util;
+namespace TraderInteractive\Util;
 
 /**
  * Static class with various string functions.

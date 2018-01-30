@@ -1,11 +1,11 @@
 <?php
 
-namespace DominionEnterprises\Util;
+namespace TraderInteractive\Util;
 
-use DominionEnterprises\Util\Strings as S;
+use TraderInteractive\Util\Strings as S;
 
 /**
- * @coversDefaultClass \DominionEnterprises\Util\Strings
+ * @coversDefaultClass \TraderInteractive\Util\Strings
  * @covers ::<private>
  */
 final class StringsTest extends \PHPUnit_Framework_TestCase
