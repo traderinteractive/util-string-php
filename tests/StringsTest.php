@@ -3,12 +3,13 @@
 namespace TraderInteractive\Util;
 
 use TraderInteractive\Util\Strings as S;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass \TraderInteractive\Util\Strings
  * @covers ::<private>
  */
-final class StringsTest extends \PHPUnit_Framework_TestCase
+final class StringsTest extends TestCase
 {
     /**
      * Verify bahavior of format() with object argument casted to a string.
