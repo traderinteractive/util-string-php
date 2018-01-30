@@ -55,6 +55,19 @@ final class StringsTest extends TestCase
     }
 
     /**
+     * @test
+     * @covers ::endsWith
+     *
+     * @return void
+     */
+    public function endsWithEmptyString()
+    {
+        $nonSuffix = null;
+        $this->assertFalse(S::endsWith('', 'suffix', $nonSuffix));
+        $this->assertSame('', $nonSuffix);
+    }
+
+    /**
      * Verify matching bahavior of endsWith().
      *
      * @test
