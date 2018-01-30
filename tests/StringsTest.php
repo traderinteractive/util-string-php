@@ -12,6 +12,20 @@ use PHPUnit\Framework\TestCase;
 final class StringsTest extends TestCase
 {
     /**
+     * Verify bahavior of format() with argument cannot be casted to a string.
+     *
+     * @test
+     * @expectedException TypeError
+     * @covers ::format
+     *
+     * @return void
+     */
+    public function formatNonStringCastableObject()
+    {
+        S::format('{0} and {1}', new \StdClass(), 'Jill');
+    }
+
+    /**
      * Verify bahavior of format() with object argument casted to a string.
      *
      * @test
@@ -55,6 +69,20 @@ final class StringsTest extends TestCase
     }
 
     /**
+     * Verify bahavior of format() with non-string $format.
+     *
+     * @test
+     * @expectedException TypeError
+     * @covers ::format
+     *
+     * @return void
+     */
+    public function formatNonStringFormat()
+    {
+        S::format([], 'C', 'B', 'A');
+    }
+
+    /**
      * @test
      * @covers ::endsWith
      *
@@ -95,6 +123,34 @@ final class StringsTest extends TestCase
         $nonSuffix = null;
         $this->assertFalse(S::endsWith('bah', 'z', $nonSuffix));
         $this->assertSame('bah', $nonSuffix);
+    }
+
+    /**
+     * Verify non-matching bahavior of endsWith().
+     *
+     * @test
+     * @expectedException TypeError
+     * @covers ::endsWith
+     *
+     * @return void
+     */
+    public function endsWithBadTypeForSubject()
+    {
+        S::endsWith(new \StdClass(), '');
+    }
+
+    /**
+     * Verify behavior of endsWith() with non-string $suffix.
+     *
+     * @test
+     * @expectedException TypeError
+     * @covers ::endsWith
+     *
+     * @return void
+     */
+    public function endsWithBadTypeForSuffix()
+    {
+        S::endsWith('', new \StdClass());
     }
 
     /**
@@ -194,6 +250,46 @@ final class StringsTest extends TestCase
     }
 
     /**
+     * Tests that ellipsize fails with an integer instead of a string.
+     *
+     * @test
+     * @expectedException TypeError
+     * @covers ::ellipsize
+     *
+     * @return void
+     */
+    public function ellipsizeIntegerInsteadOfString()
+    {
+        S::ellipsize(null, 10);
+    }
+
+    /**
+     * Tests that ellipsize fails with a string for $maxLength.
+     *
+     * @test
+     * @expectedException TypeError
+     * @covers ::ellipsize
+     *
+     * @return void
+     */
+    public function ellipsizeStringMaxLength()
+    {
+        S::ellipsize('test', 'a');
+    }
+
+    /**
+     * @test
+     * @expectedException TypeError
+     * @covers ::ellipsize
+     *
+     * @return void
+     */
+    public function ellipsizeNonStringSuffix()
+    {
+        S::ellipsize('test', 10, new \StdClass());
+    }
+
+    /**
      * Verify basic behavior of ucwords().
      *
      * @test
@@ -245,5 +341,33 @@ final class StringsTest extends TestCase
     {
         $input = 'Mary had a little-lamb';
         $this->assertSame('MaRy haD a little-laMb', S::ucwords($input, 'a'));
+    }
+
+    /**
+     * Verify behavior of ucwords() with non-string $string.
+     *
+     * @test
+     * @expectedException TypeError
+     * @covers ::ucwords
+     *
+     * @return void
+     */
+    public function ucwordsBadTypeString()
+    {
+        S::ucwords(null);
+    }
+
+    /**
+     * Verify behavior of ucwords() with non-string $delimiters.
+     *
+     * @test
+     * @expectedException TypeError
+     * @covers ::ucwords
+     *
+     * @return void
+     */
+    public function ucwordsBadTypeDelimiters()
+    {
+        S::ucwords('test', null);
     }
 }
