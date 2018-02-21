@@ -91,42 +91,4 @@ final class Strings
 
         return $string . $suffix;
     }
-
-    /**
-     * Uppercases words using custom word delimiters.
-     *
-     * This is more flexible than normal php ucwords because that only treats space as a word delimiter.
-     *
-     * Here is an example:
-     * <code>
-     * <?php
-     * $string = 'break-down o\'boy up_town you+me here now,this:place';
-     *
-     * echo String::ucwords($string);
-     * // Break-Down O\'Boy Up_Town You+Me Here Now,This:Place
-     *
-     * echo String::ucwords($string, '- ');
-     * // Break-Down O\'boy Up_town You+me Here Now,this:place
-     * ?>
-     * </code>
-     *
-     * @param string $string The string to titleize.
-     * @param string $delimiters The characters to treat as word delimiters.
-     *
-     * @return string The titleized string.
-     */
-    public static function ucwords(string $string, string $delimiters = "-_+' \n\t\r\0\x0B:/,.") : string
-    {
-        if ($delimiters === '') {
-            return $string;
-        }
-
-        return preg_replace_callback(
-            '/[^' . preg_quote($delimiters, '/') . ']+/',
-            function ($matches) {
-                return ucfirst($matches[0]);
-            },
-            $string
-        );
-    }
 }

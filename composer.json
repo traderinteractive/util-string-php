@@ -23,6 +23,9 @@
     "config": {
         "sort-packages": true
     },
+    "suggest": {
+        "doctrine/inflector": "As replacement for Strings::ucwords"
+    },
     "require": {
         "php": "^7.0"
     },
