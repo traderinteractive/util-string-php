@@ -1,9 +1,9 @@
 <?php
 /**
- * Defines \DominionEnterprises\Util\Strings class.
+ * Defines \TraderInteractive\Util\Strings class.
  */
 
-namespace DominionEnterprises\Util;
+namespace TraderInteractive\Util;
 
 /**
  * Static class with various string functions.
@@ -18,29 +18,11 @@ final class Strings
      *
      * @return string Returns a copy of format in which the format items have been
      *     replaced by the string representations of arg0, arg1,... argN.
-     *
-     * @throws \InvalidArgumentException Thrown if $format is not a string
-     * @throws \InvalidArgumentException Thrown if all arguments are not castable as strings or
-     *     if less than two arguments are given
      */
-    public static function format($format, ...$arguments)
+    public static function format(string $format, string ...$arguments) : string
     {
-        if (!is_string($format)) {
-            throw new \InvalidArgumentException('$format is not a string');
-        }
-
         foreach ($arguments as $key => $value) {
-            if (is_scalar($value) || (is_object($value) && method_exists($value, '__toString'))) {
-                $format = str_replace("{{$key}}", (string)$value, $format);
-                continue;
-            }
-
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Variable of type '%s' could not be converted to a string",
-                    is_object($value) ? get_class($value) : gettype($value)
-                )
-            );
+            $format = str_replace("{{$key}}", (string)$value, $format);
         }
 
         return $format;
@@ -54,26 +36,17 @@ final class Strings
      * @param mixed &$nonSuffix This is the part of the string that is not the suffix.
      *
      * @return bool whether the $string ended with $suffix or not.
-     *
-     * @throws \InvalidArgumentException if $string is not a string
-     * @throws \InvalidArgumentException if $suffix is not a string
      */
-    public static function endsWith($string, $suffix, &$nonSuffix = null)
+    public static function endsWith(string $string, string $suffix, &$nonSuffix = null) : bool
     {
-        if (!is_string($string)) {
-            throw new \InvalidArgumentException('$string is not a string');
-        }
-
-        if (!is_string($suffix)) {
-            throw new \InvalidArgumentException('$suffix is not a string');
-        }
-
         $suffixLength = strlen($suffix);
 
         if ($suffixLength === 0) {
             $nonSuffix = $string;
             return true;
-        } elseif (empty($string)) {
+        }
+
+        if (empty($string)) {
             $nonSuffix = '';
             return false;
         }
@@ -97,27 +70,12 @@ final class Strings
      *
      * @return string The truncated string with the ellipsis included if truncation occured.
      *
-     * @throws \InvalidArgumentException if $string is not a string
-     * @throws \InvalidArgumentException if $maxLength is not an integer
      * @throws \InvalidArgumentException if $maxLength is negative
-     * @throws \InvalidArgumentException if $suffix is not a string
      */
-    public static function ellipsize($string, $maxLength, $suffix = '...')
+    public static function ellipsize(string $string, int $maxLength, string $suffix = '...') : string
     {
-        if (!is_string($string)) {
-            throw new \InvalidArgumentException('$string is not a string');
-        }
-
-        if (!is_int($maxLength)) {
-            throw new \InvalidArgumentException('$maxLength is not an integer');
-        }
-
         if ($maxLength < 0) {
             throw new \InvalidArgumentException('$maxLength is negative');
-        }
-
-        if (!is_string($suffix)) {
-            throw new \InvalidArgumentException('$suffix is not a string');
         }
 
         if (strlen($string) <= $maxLength) {
@@ -132,54 +90,5 @@ final class Strings
         }
 
         return $string . $suffix;
-    }
-
-    /**
-     * Uppercases words using custom word delimiters.
-     *
-     * This is more flexible than normal php ucwords because that only treats space as a word delimiter.
-     *
-     * Here is an example:
-     * <code>
-     * <?php
-     * $string = 'break-down o\'boy up_town you+me here now,this:place';
-     *
-     * echo String::ucwords($string);
-     * // Break-Down O\'Boy Up_Town You+Me Here Now,This:Place
-     *
-     * echo String::ucwords($string, '- ');
-     * // Break-Down O\'boy Up_town You+me Here Now,this:place
-     * ?>
-     * </code>
-     *
-     * @param string $string The string to titleize.
-     * @param string $delimiters The characters to treat as word delimiters.
-     *
-     * @return string The titleized string.
-     *
-     * @throws \InvalidArgumentException if $string is not a string
-     * @throws \InvalidArgumentException if $delimiters is not a string
-     */
-    public static function ucwords($string, $delimiters = "-_+' \n\t\r\0\x0B:/,.")
-    {
-        if (!is_string($string)) {
-            throw new \InvalidArgumentException('$string is not a string');
-        }
-
-        if (!is_string($delimiters)) {
-            throw new \InvalidArgumentException('$delimiters is not a string');
-        }
-
-        if ($delimiters === '') {
-            return $string;
-        }
-
-        return preg_replace_callback(
-            '/[^' . preg_quote($delimiters, '/') . ']+/',
-            function ($matches) {
-                return ucfirst($matches[0]);
-            },
-            $string
-        );
     }
 }

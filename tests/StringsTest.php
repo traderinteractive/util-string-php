@@ -1,21 +1,21 @@
 <?php
 
-namespace DominionEnterprises\Util;
+namespace TraderInteractive\Util;
 
-use DominionEnterprises\Util\Strings as S;
+use TraderInteractive\Util\Strings as S;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \DominionEnterprises\Util\Strings
+ * @coversDefaultClass \TraderInteractive\Util\Strings
  * @covers ::<private>
  */
-final class StringsTest extends \PHPUnit_Framework_TestCase
+final class StringsTest extends TestCase
 {
     /**
      * Verify bahavior of format() with argument cannot be casted to a string.
      *
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Variable of type 'stdClass' could not be converted to a string
+     * @expectedException TypeError
      * @covers ::format
      *
      * @return void
@@ -72,8 +72,7 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
      * Verify bahavior of format() with non-string $format.
      *
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $format is not a string
+     * @expectedException TypeError
      * @covers ::format
      *
      * @return void
@@ -81,6 +80,19 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
     public function formatNonStringFormat()
     {
         S::format([], 'C', 'B', 'A');
+    }
+
+    /**
+     * @test
+     * @covers ::endsWith
+     *
+     * @return void
+     */
+    public function endsWithEmptyString()
+    {
+        $nonSuffix = null;
+        $this->assertFalse(S::endsWith('', 'suffix', $nonSuffix));
+        $this->assertSame('', $nonSuffix);
     }
 
     /**
@@ -117,30 +129,28 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
      * Verify non-matching bahavior of endsWith().
      *
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $string is not a string
+     * @expectedException TypeError
      * @covers ::endsWith
      *
      * @return void
      */
     public function endsWithBadTypeForSubject()
     {
-        S::endsWith(true, '');
+        S::endsWith(new \StdClass(), '');
     }
 
     /**
      * Verify behavior of endsWith() with non-string $suffix.
      *
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $suffix is not a string
+     * @expectedException TypeError
      * @covers ::endsWith
      *
      * @return void
      */
     public function endsWithBadTypeForSuffix()
     {
-        S::endsWith('', true);
+        S::endsWith('', new \StdClass());
     }
 
     /**
@@ -243,8 +253,7 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
      * Tests that ellipsize fails with an integer instead of a string.
      *
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $string is not a string
+     * @expectedException TypeError
      * @covers ::ellipsize
      *
      * @return void
@@ -258,8 +267,7 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
      * Tests that ellipsize fails with a string for $maxLength.
      *
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $maxLength is not an integer
+     * @expectedException TypeError
      * @covers ::ellipsize
      *
      * @return void
@@ -270,101 +278,14 @@ final class StringsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests that ellipsize fails with an integer for $suffix.
-     *
      * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $suffix is not a string
+     * @expectedException TypeError
      * @covers ::ellipsize
      *
      * @return void
      */
-    public function ellipsizeIntegerSuffix()
+    public function ellipsizeNonStringSuffix()
     {
-        S::ellipsize('test', 10, 0);
-    }
-
-    /**
-     * Verify basic behavior of ucwords().
-     *
-     * @test
-     * @covers ::ucwords
-     *
-     * @return void
-     */
-    public function ucwords()
-    {
-        $input = 'break-down o\'boy up_town you+me here now,this:place';
-        $this->assertSame('Break-Down O\'Boy Up_Town You+Me Here Now,This:Place', S::ucwords($input));
-    }
-
-    /**
-     * Verify behavior of ucwords() with optional delimiters.
-     *
-     * @test
-     * @covers ::ucwords
-     *
-     * @return void
-     */
-    public function ucwordsOptionalDelimiters()
-    {
-        $input = 'break-down o\'boy up_town you+me here now,this:place';
-        $this->assertSame('Break-Down O\'boy Up_town You+me Here Now,this:place', S::ucwords($input, '- '));
-    }
-
-    /**
-     * @test
-     * @covers ::ucwords
-     *
-     * @return void
-     */
-    public function ucwordsNoDelimiters()
-    {
-        $input = 'Mary had a little-lamb';
-        $this->assertSame($input, S::ucwords($input, ''));
-    }
-
-    /**
-     * Verify behavior of ucwords() with single delimiter.
-     *
-     * @test
-     * @covers ::ucwords
-     *
-     * @return void
-     */
-    public function ucwordsSingleDelimiter()
-    {
-        $input = 'Mary had a little-lamb';
-        $this->assertSame('MaRy haD a little-laMb', S::ucwords($input, 'a'));
-    }
-
-    /**
-     * Verify behavior of ucwords() with non-string $string.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $string is not a string
-     * @covers ::ucwords
-     *
-     * @return void
-     */
-    public function ucwordsBadTypeString()
-    {
-        S::ucwords(null);
-    }
-
-    /**
-     * Verify behavior of ucwords() with non-string $delimiters.
-     *
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $delimiters is not a string
-     * @covers ::ucwords
-     *
-     * @return void
-     */
-    public function ucwordsBadTypeDelimiters()
-    {
-        S::ucwords('test', null);
+        S::ellipsize('test', 10, new \StdClass());
     }
 }
