@@ -15,13 +15,13 @@ final class StringsTest extends TestCase
      * Verify bahavior of format() with argument cannot be casted to a string.
      *
      * @test
-     * @expectedException TypeError
      * @covers ::format
      *
      * @return void
      */
     public function formatNonStringCastableObject()
     {
+        $this->expectException(\TypeError::class);
         S::format('{0} and {1}', new \StdClass(), 'Jill');
     }
 
@@ -72,13 +72,13 @@ final class StringsTest extends TestCase
      * Verify bahavior of format() with non-string $format.
      *
      * @test
-     * @expectedException TypeError
      * @covers ::format
      *
      * @return void
      */
     public function formatNonStringFormat()
     {
+        $this->expectException(\TypeError::class);
         S::format([], 'C', 'B', 'A');
     }
 
@@ -129,13 +129,13 @@ final class StringsTest extends TestCase
      * Verify non-matching bahavior of endsWith().
      *
      * @test
-     * @expectedException TypeError
      * @covers ::endsWith
      *
      * @return void
      */
     public function endsWithBadTypeForSubject()
     {
+        $this->expectException(\TypeError::class);
         S::endsWith(new \StdClass(), '');
     }
 
@@ -143,13 +143,13 @@ final class StringsTest extends TestCase
      * Verify behavior of endsWith() with non-string $suffix.
      *
      * @test
-     * @expectedException TypeError
      * @covers ::endsWith
      *
      * @return void
      */
     public function endsWithBadTypeForSuffix()
     {
+        $this->expectException(\TypeError::class);
         S::endsWith('', new \StdClass());
     }
 
@@ -228,11 +228,11 @@ final class StringsTest extends TestCase
      * @covers ::ellipsize
      *
      * @return void
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage $maxLength is negative
      */
     public function ellipsizeNegativeMaxLength()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$maxLength is negative');
         S::ellipsize('foo', -1);
     }
 
@@ -253,13 +253,13 @@ final class StringsTest extends TestCase
      * Tests that ellipsize fails with an integer instead of a string.
      *
      * @test
-     * @expectedException TypeError
      * @covers ::ellipsize
      *
      * @return void
      */
     public function ellipsizeIntegerInsteadOfString()
     {
+        $this->expectException(\TypeError::class);
         S::ellipsize(null, 10);
     }
 
@@ -267,25 +267,25 @@ final class StringsTest extends TestCase
      * Tests that ellipsize fails with a string for $maxLength.
      *
      * @test
-     * @expectedException TypeError
      * @covers ::ellipsize
      *
      * @return void
      */
     public function ellipsizeStringMaxLength()
     {
+        $this->expectException(\TypeError::class);
         S::ellipsize('test', 'a');
     }
 
     /**
      * @test
-     * @expectedException TypeError
      * @covers ::ellipsize
      *
      * @return void
      */
     public function ellipsizeNonStringSuffix()
     {
+        $this->expectException(\TypeError::class);
         S::ellipsize('test', 10, new \StdClass());
     }
 }
